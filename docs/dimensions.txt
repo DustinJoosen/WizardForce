@@ -1,0 +1,3 @@
+screen = pygame.display.set_mode((800, 530))
+WIDTH = 800
+HEIGHT = 530
