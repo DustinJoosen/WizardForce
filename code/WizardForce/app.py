@@ -3,6 +3,7 @@ from widgets.Button import Button
 import events.ButtonEvents
 from Enums import EventType
 from events.EventHandler import EventHandler
+from data.models.MagicType import MagicType
 
 pygame.init()
 
@@ -13,6 +14,11 @@ button = Button([0, 0], [80, 80], events.ButtonEvents.OpenScreen, EventType.Both
 
 event_handler = EventHandler()
 event_handler.AddWidget(button)
+
+mt = MagicType()
+mt.InitProvider()
+
+magic_types = mt.GetAll()
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
