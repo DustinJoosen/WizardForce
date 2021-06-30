@@ -5,6 +5,6 @@ class Progress(JsonProvider):
 	@classmethod
 	def Load(cls):
 		progress = Progress()
-		super().LoadIntoObject(progress, "../WizardForce/resources/data/json/progress.json")
+		super().LoadIntoObject(progress, "progress.json")
 
 		return progress

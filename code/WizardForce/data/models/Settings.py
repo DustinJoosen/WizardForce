@@ -5,6 +5,6 @@ class Settings(JsonProvider):
 	@classmethod
 	def Load(cls):
 		settings = Settings()
-		super().LoadIntoObject(settings, "../WizardForce/resources/data/json/settings.json")
+		super().LoadIntoObject(settings, "settings.json")
 
 		return settings

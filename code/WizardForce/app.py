@@ -3,7 +3,7 @@ from widgets.Button import Button
 import events.ButtonEvents
 from Enums import EventType
 from events.EventHandler import EventHandler
-from data.models.MagicType import MagicType
+from data.DataContext import DataContext
 
 pygame.init()
 
@@ -15,10 +15,10 @@ button = Button([0, 0], [80, 80], events.ButtonEvents.OpenScreen, EventType.Both
 event_handler = EventHandler()
 event_handler.AddWidget(button)
 
-mt = MagicType()
-mt.InitProvider()
+data_context = DataContext()
+data_context.InitProviders()
 
-magic_types = mt.GetAll()
+wizards = data_context.Wizard.GetAll()
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -29,7 +29,7 @@ while running:
 		if event.type == pygame.QUIT:
 			running = False
 
-	#TODO: the functions of the buttons, are executed every frame
+	#TODO: the functions of the buttons, are executed every frame. This is not desired
 	event_handler.CheckEvents()
 
 	pygame.draw.rect(screen, (255, 255, 255), (0, 0, 80, 80))

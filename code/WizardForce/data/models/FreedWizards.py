@@ -5,6 +5,6 @@ class FreedWizards(JsonProvider):
 	@classmethod
 	def Load(cls):
 		wizards = FreedWizards()
-		super().LoadIntoObject(wizards, "../WizardForce/resources/data/json/wizards.json")
+		super().LoadIntoObject(wizards, "wizards.json")
 
 		return wizards
