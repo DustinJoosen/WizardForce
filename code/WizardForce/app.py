@@ -2,35 +2,31 @@ import pygame
 from widgets.Button import Button
 import events.ButtonEvents
 from Enums import EventType
-from events.EventHandler import EventHandler
-from data.DataContext import DataContext
+from ScreenManager import ScreenManager
 
 pygame.init()
 
 WIDTH = 800
 HEIGHT = 530
 
-button = Button([0, 0], [80, 80], events.ButtonEvents.OpenScreen, EventType.Both, 'IS_Mainscreen')
-
-event_handler = EventHandler()
-event_handler.AddWidget(button)
-
-data_context = DataContext()
-data_context.InitProviders()
-
-wizards = data_context.Wizard.GetAll()
-
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Wizard Force")
 
+screen_manager = ScreenManager(screen)
 
 running = True
 while running:
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
+	events = pygame.event.get()
+	for event in events:
+		if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT):
 			running = False
 
-	#TODO: the functions of the buttons, are executed every frame. This is not desired
-	event_handler.CheckEvents()
+		if event.type == pygame.MOUSEBUTTONDOWN:
+			# print("mouse button down")
+			pass
 
-	pygame.draw.rect(screen, (255, 255, 255), (0, 0, 80, 80))
-	pygame.display.update()
+	#TODO: the functions of the buttons, are executed every frame. This is not desired.
+	if len(events) > 0:
+		screen_manager.event_handler.CheckEvents()
+
+	screen_manager.Draw()

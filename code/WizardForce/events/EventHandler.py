@@ -1,5 +1,9 @@
 from Enums import EventType
 import pygame
+import win32api
+
+
+pygame.init()
 
 
 class EventHandler:
@@ -8,6 +12,9 @@ class EventHandler:
 
 	def AddWidget(self, widget):
 		self.__widgets.append(widget)
+
+	def Clear(self):
+		self.__widgets.clear()
 
 	#loops through the widgets, and calls their InvokeEvent method if needed
 	def CheckEvents(self):

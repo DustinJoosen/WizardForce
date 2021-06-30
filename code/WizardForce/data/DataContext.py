@@ -24,6 +24,8 @@ class DataContext:
 
 	def InitProviders(self):
 		self.Level.InitProvider()
+		self.LevelFoe.InitProvider()
 		self.Move.InitProvider()
+		self.MoveSet.InitProvider()
 		self.ShopItem.InitProvider()
 		self.Wizard.InitProvider()
