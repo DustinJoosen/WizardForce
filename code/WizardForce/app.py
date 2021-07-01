@@ -12,20 +12,21 @@ HEIGHT = 530
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Wizard Force")
 
+clock = pygame.time.Clock()
+FPS = 24
+
 screen_manager = ScreenManager(screen)
 
 running = True
 while running:
+	clock.tick(FPS)
+
 	events = pygame.event.get()
 	for event in events:
 		if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT):
 			running = False
 
-		if event.type == pygame.MOUSEBUTTONDOWN:
-			# print("mouse button down")
-			pass
-
-	#TODO: the functions of the buttons, are executed every frame. This is not desired.
+	#only check the events, if something actually happened.
 	if len(events) > 0:
 		screen_manager.event_handler.CheckEvents()
 

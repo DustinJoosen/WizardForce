@@ -1,7 +1,5 @@
 from Enums import EventType
 import pygame
-import win32api
-
 
 pygame.init()
 
@@ -10,8 +8,13 @@ class EventHandler:
 	def __init__(self):
 		self.__widgets = []
 
+		# self.is_clicking = False
+
 	def AddWidget(self, widget):
 		self.__widgets.append(widget)
+
+	def GetWidgets(self):
+		return self.__widgets
 
 	def Clear(self):
 		self.__widgets.clear()
