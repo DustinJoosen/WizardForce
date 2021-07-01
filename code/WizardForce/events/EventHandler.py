@@ -13,6 +13,9 @@ class EventHandler:
 	def AddWidget(self, widget):
 		self.__widgets.append(widget)
 
+	def AddWidgets(self, widgets):
+		self.__widgets += widgets
+
 	def GetWidgets(self):
 		return self.__widgets
 

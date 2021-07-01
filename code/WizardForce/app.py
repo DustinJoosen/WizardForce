@@ -17,14 +17,13 @@ FPS = 24
 
 screen_manager = ScreenManager(screen)
 
-running = True
-while running:
+while screen_manager.running:
 	clock.tick(FPS)
 
 	events = pygame.event.get()
 	for event in events:
 		if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT):
-			running = False
+			screen_manager.running = False
 
 	#only check the events, if something actually happened.
 	if len(events) > 0:
