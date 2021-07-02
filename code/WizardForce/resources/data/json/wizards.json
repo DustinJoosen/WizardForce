@@ -1,9 +1,8 @@
 {
-	"party_members": [1,2,3,4],
+	"party_members": [19, 14, 5, 11],
 	"wizards":[
 		{
 			"Id": 1,
-			"wizardId": 4,
 			"level": 80,
 			"hp": 70,
 			"max_hp": 80,
@@ -11,7 +10,6 @@
 		},
 		{
 			"Id": 2,
-			"wizardId": 4,
 			"level": 80,
 			"hp": 70,
 			"max_hp": 80,
@@ -19,7 +17,6 @@
 		},
 		{
 			"Id": 3,
-			"wizardId": 4,
 			"level": 80,
 			"hp": 70,
 			"max_hp": 80,

@@ -1,5 +1,6 @@
 from data.providers.SqliteProvider import SqliteProvider
 from data.models.Move import MoveSet
+from data.models.FreedWizards import FreedWizards
 
 
 class Wizard(SqliteProvider):
@@ -29,6 +30,20 @@ class Wizard(SqliteProvider):
 			setattr(wizard, "Moves", moves)
 
 		return wizards
+
+	def GetPartyWizards(self):
+		freed_wizards = FreedWizards.Load()
+
+		query = "SELECT * FROM WizardView WHERE "
+		for i, wizardId in enumerate(freed_wizards.party_members):
+			if i == 0:
+				query = f"{query} Id = {wizardId}"
+			else:
+				query = f"{query} OR Id = {wizardId}"
+
+		wizards = self.GetByQuery(query)
+		return wizards
+
 
 	@classmethod
 	def GetMove(cls, moveSetId):

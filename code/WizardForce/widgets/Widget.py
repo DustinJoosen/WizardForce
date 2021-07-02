@@ -9,7 +9,7 @@ class Widget:
 		self.image = image
 		self.event_type = event_type
 
-		self.__draw_tuple = (self.positions[0], self.positions[1], self.dimensions[0], self.dimensions[1])
+		self.__draw_tuple = tuple(self.positions + self.dimensions)
 
 	#execute the correct method of the widget, depending on the event_type
 	def InvokeEvent(self, event_type):
@@ -21,7 +21,7 @@ class Widget:
 			self.OnClick()
 			self.OnHover()
 
-	def Draw(self, screen):
+	def Display(self, screen):
 		if self.image is not None:
 			screen.blit(self.image, (self.positions[0], self.positions[1]))
 		else:

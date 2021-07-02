@@ -10,3 +10,8 @@ class ButtonEvents:
 	def CloseGame(cls):
 		cls.screen_manager.running = False
 		print("Closing game. Thanks for playing!")
+
+	@classmethod
+	def ScreenRollBack(cls):
+		cls.OpenScreen(cls.screen_manager.screen_history[-2])
+		print("Rolling back screen")
