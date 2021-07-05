@@ -44,7 +44,6 @@ class Wizard(SqliteProvider):
 		wizards = self.GetByQuery(query)
 		return wizards
 
-
 	@classmethod
 	def GetMove(cls, moveSetId):
 		ms = MoveSet()

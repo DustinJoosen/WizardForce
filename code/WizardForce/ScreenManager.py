@@ -2,6 +2,7 @@ from Enums import ScreenCode, EventType
 from events.EventHandler import EventHandler
 from widgets.Button import Button
 from widgets.Text import Text
+from widgets.Image import Image as ImageW
 from events.ButtonEvents import ButtonEvents
 from data.DataContext import DataContext
 import pygame
@@ -96,7 +97,6 @@ class ScreenManager:
 
 	def __InitMainScreen(self):
 		self.images["mainscreen_btn_sprite"] = pygame.image.load(f"{self.image_root}/buttons/mainscreen_button.png")
-		self.images["map_sprite"] = pygame.image.load(f"{self.image_root}/map.png")
 
 		settings_button = Button([640, 100], [140, 60], EventType.OnClick, ButtonEvents.OpenScreen,
 							args=ScreenCode.IS_SettingsScreen, image=self.images["mainscreen_btn_sprite"])
@@ -112,8 +112,10 @@ class ScreenManager:
 		so_text = Text("Shop", [675, 250], EventType.Neither, None)
 		ex_text = Text("Exit", [680, 320], EventType.Neither, None)
 
-		widgets = [party_button, shop_button, settings_button, exit_button, op_text, pa_text, so_text, ex_text]
-		self.event_handler.AddWidgets(widgets)
+		map_image = ImageW([35, 60], pygame.image.load(f"{self.image_root}/map.png"))
+
+		self.event_handler.AddWidgets([map_image, settings_button, party_button, shop_button, exit_button])
+		self.event_handler.AddWidgets([op_text, pa_text, so_text, ex_text])
 
 	def __InitSettingsScreen(self):
 		back_text = Text("Back", [10, 10], EventType.Neither, None)
@@ -124,18 +126,31 @@ class ScreenManager:
 
 	def __InitPartyScreen(self):
 		party_wizards = self.data_context.Wizard.GetPartyWizards()
-		party_wizard_texts = []
+		wizard_box_image = pygame.image.load(f"{self.image_root}/partyscreen_wizard_box.png")
 
-		for i, wizard in enumerate(party_wizards):
-			wizard_text = Text(wizard.Name, [320, i*60], EventType.Neither, None, color=(0, 0, 0))
-			party_wizard_texts.append(wizard_text)
+		idx = 0
+		for row in range(2):
+			for col in range(2):
+				wizard = party_wizards[idx]
 
-		back_text = Text("Back", [10, 10], EventType.Neither, None)
-		back_button = Button([0, 0], [200, 120], EventType.OnClick, ButtonEvents.ScreenRollBack,
+				img = pygame.image.load(f"{self.image_root}/wizards/{wizard.ImageName}")
+				img = pygame.transform.scale(img, (200, 200))
+
+				wizard_image = ImageW([row * 270 + 80, col * 250 + 30], img)
+				wizard_box = ImageW([(row * 270 + 30), (col * 250 + 30)], wizard_box_image)
+				wizard_name_text = Text(wizard.Name, [row * 270 + 90, col * 250 + 200],	EventType.Neither, None,
+									color=(0, 0, 0), fontsize=20)
+				wizard_lvl_text = Text(f"Level: {wizard.OriginLevel}", [row * 270 + 90, col * 250 + 225],
+									EventType.Neither, None, color=(0, 0, 0), fontsize=20)
+
+				self.event_handler.AddWidgets([wizard_image, wizard_box, wizard_name_text, wizard_lvl_text])
+				idx += 1
+
+		back_text = Text("Back", [640, 440], EventType.Neither, None)
+		back_button = Button([580, 400], [200, 120], EventType.OnClick, ButtonEvents.ScreenRollBack,
 						image=self.images["generic_button_sprite"])
 
 		self.event_handler.AddWidgets([back_button, back_text])
-		self.event_handler.AddWidgets(party_wizard_texts)
 
 	def __InitShopScreen(self):
 		back_text = Text("Back", [10, 10], EventType.Neither, None)
@@ -164,7 +179,6 @@ class ScreenManager:
 
 	def __DrawMainScreen(self):
 		self.screen.blit(self.images["generic_bg_sprite"], (0, 0))
-		self.screen.blit(self.images["map_sprite"], (35, 60))
 
 		for widget in self.event_handler.GetWidgets():
 			widget.Display(self.screen)
