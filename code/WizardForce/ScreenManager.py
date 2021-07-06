@@ -118,14 +118,24 @@ class ScreenManager:
 		self.event_handler.AddWidgets([op_text, pa_text, so_text, ex_text])
 
 	def __InitSettingsScreen(self):
-		back_text = Text("Back", [10, 10], EventType.Neither, None)
-		back_button = Button([0, 0], [200, 120], EventType.OnClick, ButtonEvents.ScreenRollBack,
+		settings = self.data_context.Settings.Load()
+
+		play_music_text = Text("Play music", [100, 100], EventType.Neither, None, color=(0, 0, 0))
+		music_volume_text = Text("Music Volume", [100, 180], EventType.Neither, None, color=(0, 0, 0))
+		flash_on_damage_text = Text("Flash on damage", [100, 260], EventType.Neither, None, color=(0, 0, 0))
+
+		self.event_handler.AddWidgets([play_music_text, music_volume_text, flash_on_damage_text])
+
+		back_text = Text("Back", [640, 440], EventType.Neither, None)
+		back_button = Button([580, 400], [200, 120], EventType.OnClick, ButtonEvents.ScreenRollBack,
 						image=self.images["generic_button_sprite"])
 
 		self.event_handler.AddWidgets([back_button, back_text])
 
 	def __InitPartyScreen(self):
 		party_wizards = self.data_context.Wizard.GetPartyWizards()
+		non_party_wizards = self.data_context.Wizard.GetNonPartyWizards()
+
 		wizard_box_image = pygame.image.load(f"{self.image_root}/partyscreen_wizard_box.png")
 
 		idx = 0
@@ -146,11 +156,18 @@ class ScreenManager:
 				self.event_handler.AddWidgets([wizard_image, wizard_box, wizard_name_text, wizard_lvl_text])
 				idx += 1
 
+		for i, npw in enumerate(non_party_wizards):
+			display_text = f"{npw.Name} - lvl {npw.relative_data['level']}"
+			text = Text(display_text, [600, 100 + 40*i], EventType.Neither, None, color=(0, 0, 0))
+			self.event_handler.AddWidget(text)
+
+		npw_header = Text("Other wizards", [600, 30], EventType.Neither, None, color=(0, 0, 0))
+
 		back_text = Text("Back", [640, 440], EventType.Neither, None)
 		back_button = Button([580, 400], [200, 120], EventType.OnClick, ButtonEvents.ScreenRollBack,
 						image=self.images["generic_button_sprite"])
 
-		self.event_handler.AddWidgets([back_button, back_text])
+		self.event_handler.AddWidgets([back_button, back_text, npw_header])
 
 	def __InitShopScreen(self):
 		back_text = Text("Back", [10, 10], EventType.Neither, None)
