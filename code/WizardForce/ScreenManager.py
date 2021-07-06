@@ -140,7 +140,7 @@ class ScreenManager:
 				wizard_box = ImageW([(row * 270 + 30), (col * 250 + 30)], wizard_box_image)
 				wizard_name_text = Text(wizard.Name, [row * 270 + 90, col * 250 + 200],	EventType.Neither, None,
 									color=(0, 0, 0), fontsize=20)
-				wizard_lvl_text = Text(f"Level: {wizard.OriginLevel}", [row * 270 + 90, col * 250 + 225],
+				wizard_lvl_text = Text(f"Level: {wizard.relative_data['level']}", [row * 270 + 90, col * 250 + 225],
 									EventType.Neither, None, color=(0, 0, 0), fontsize=20)
 
 				self.event_handler.AddWidgets([wizard_image, wizard_box, wizard_name_text, wizard_lvl_text])

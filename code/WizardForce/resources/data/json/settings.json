@@ -1,5 +1,5 @@
 {
-	"play_music": true,
+	"play_music": false,
 	"music_volume": 20,
 	"flash_red_on_damage": true
 }

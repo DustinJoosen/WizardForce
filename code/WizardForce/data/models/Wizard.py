@@ -42,6 +42,16 @@ class Wizard(SqliteProvider):
 				query = f"{query} OR Id = {wizardId}"
 
 		wizards = self.GetByQuery(query)
+
+		#load the relative wizard data in the json file into the objects
+		for wizard in wizards:
+			for freed_wizard in freed_wizards.wizards:
+				if wizard.Id == freed_wizard["Id"]:
+					relative_wizard_data = freed_wizard
+
+			if relative_wizard_data is not None:
+				setattr(wizard, "relative_data", relative_wizard_data)
+
 		return wizards
 
 	@classmethod
