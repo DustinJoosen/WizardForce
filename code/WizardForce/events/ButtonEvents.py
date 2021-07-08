@@ -15,3 +15,13 @@ class ButtonEvents:
 	def ScreenRollBack(cls):
 		cls.OpenScreen(cls.screen_manager.screen_history[-2])
 		print("Rolling back screen")
+
+	@classmethod
+	def TogglePlayMusic(cls):
+		settings = cls.screen_manager.data_context.Settings.Load()
+		settings.play_music = not settings.play_music
+
+		settings.Save()
+
+		cls.screen_manager.SetScreenCode(cls.screen_manager.screen_code)
+		print("play_music is toggled")

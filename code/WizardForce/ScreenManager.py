@@ -120,11 +120,21 @@ class ScreenManager:
 	def __InitSettingsScreen(self):
 		settings = self.data_context.Settings.Load()
 
+		self.images["settingscreen_switch_on"] = pygame.image.load(f"{self.image_root}/settingscreen_switch_on.png")
+		self.images["settingscreen_switch_off"] = pygame.image.load(f"{self.image_root}/settingscreen_switch_off.png")
+
+		play_music_button = Button([0, 0], [250, 100], EventType.OnClick, ButtonEvents.TogglePlayMusic)
+
+		if settings.play_music:
+			play_music_button.image = self.images["settingscreen_switch_on"]
+		else:
+			play_music_button.image = self.images["settingscreen_switch_off"]
+
 		play_music_text = Text("Play music", [100, 100], EventType.Neither, None, color=(0, 0, 0))
 		music_volume_text = Text("Music Volume", [100, 180], EventType.Neither, None, color=(0, 0, 0))
 		flash_on_damage_text = Text("Flash on damage", [100, 260], EventType.Neither, None, color=(0, 0, 0))
 
-		self.event_handler.AddWidgets([play_music_text, music_volume_text, flash_on_damage_text])
+		self.event_handler.AddWidgets([play_music_button, play_music_text, music_volume_text, flash_on_damage_text])
 
 		back_text = Text("Back", [640, 440], EventType.Neither, None)
 		back_button = Button([580, 400], [200, 120], EventType.OnClick, ButtonEvents.ScreenRollBack,
