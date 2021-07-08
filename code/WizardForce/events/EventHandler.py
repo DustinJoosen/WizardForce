@@ -25,29 +25,18 @@ class EventHandler:
 	#loops through the widgets, and calls their InvokeEvent method if needed
 	def CheckEvents(self):
 		for widget in self.__widgets:
-			execute = False
-			param = None
-
 			#if the event is configured to accept OnClick events, and it is happening
 			if widget.event_type == EventType.OnClick and self.IsOnClicking(widget):
-				execute = True
-				param = EventType.OnClick
+				widget.OnClick()
 			# if the event is configured to accept OnHover events, and it is happening
 			elif widget.event_type == EventType.OnHover and self.IsHovering(widget):
-				execute = True
-				param = EventType.OnHover
+				widget.OnHover()
 			#if the event is configured to accept both events, check if either one is happening
 			elif widget.event_type == EventType.Both:
 				if self.IsOnClicking(widget):
-					execute = True
-					param = EventType.OnClick
-				elif self.IsHovering(widget):
-					execute = True
-					param = EventType.OnHover
-
-			#when an event needs to be executed, call the widgets InvokeEvent method
-			if execute:
-				widget.InvokeEvent(param)
+					widget.OnClick()
+				if self.IsHovering(widget):
+					widget.OnHover()
 
 	@staticmethod
 	def IsOnClicking(widget):
